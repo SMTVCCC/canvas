@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas（伯明翰大学版）Mac 版更新公告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #1A2140;
+    --muted: #565c73;
+    --faint: #8a8fa3;
+    --indigo: #5A64DE;
+    --indigo-bg: #eef0fc;
+    --border: #e5e7ee;
+    --bg: #fafafc;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.7;
+    display: flex;
+    justify-content: center;
+    padding: 32px 24px;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 680px;
+  }
+
+  /* ---- 顶部 ---- */
+  .header {
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .sub {
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .latest {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--indigo);
+    background: var(--indigo-bg);
+    border-radius: 999px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .date {
+    color: var(--faint);
+    font-size: 14px;
+  }
+
+  .dl-btn {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    color: var(--indigo);
+    background: var(--indigo-bg);
+    border-radius: 999px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity .15s;
+  }
+
+  .dl-btn:hover { opacity: .88; }
+
+  .dl-btn svg { width: 15px; height: 15px; }
+
+  /* ---- 版本条目 ---- */
+  .ver {
+    border-top: 1px solid var(--border);
+  }
+
+  .ver:last-of-type {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ver-head {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 4px;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .ver-head .v-num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ver-head .tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--indigo-bg);
+    color: var(--indigo);
+    flex-shrink: 0;
+  }
+
+  .ver-head .tag.plain {
+    background: #f0f1f5;
+    color: var(--muted);
+  }
+
+  .ver-head .v-date {
+    margin-left: auto;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ver-head .arrow {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    color: var(--faint);
+    transition: transform .2s;
+  }
+
+  .ver.open .arrow { transform: rotate(180deg); }
+
+  .ver-body {
+    display: none;
+    padding: 0 4px 20px;
+  }
+
+  .ver.open .ver-body { display: block; }
+
+  .ver-body li {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    color: var(--muted);
+    font-size: 16px;
+    padding: 4px 0;
+  }
+
+  .kind {
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 1px 8px;
+    border-radius: 5px;
+    transform: translateY(-1px);
+  }
+
+  .kind.new    { color: var(--indigo); background: var(--indigo-bg); }
+  .kind.fix    { color: #b0684c; background: #f9efeb; }
+  .kind.better { color: #4c7fb0; background: #ebf3f9; }
+
+  .ver-body .dl-inline {
+    margin-top: 12px;
+  }
+
+  .ver-body .dl-inline a {
+    color: var(--indigo);
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .ver-body .dl-inline a:hover { text-decoration: underline; }
+
+  /* ---- 底部 ---- */
+  footer {
+    margin-top: 32px;
+    font-size: 15px;
+    color: var(--faint);
+  }
+
+  footer span { margin-right: 8px; }
+  footer a { color: var(--indigo); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <main class="page">
+
+    <div class="header">
+      <h1>更新公告</h1>
+      <p class="sub">Canvas（伯明翰大学版）Mac 版的版本更新与功能说明，点击版本号可展开查看详情。</p>
+      <div class="latest">
+        <span class="badge">最新版本 v1.1.0</span>
+        <span class="date">发布于 2026-10-06</span>
+        <span class="dl-btn" style="cursor:default;">当前已是最新版本</span>
+      </div>
+    </div>
+
+    <!-- 复制下面整个 <section class="ver"> 块即可添加新版本，放在最上面 -->
+    <section class="ver open">
+      <button class="ver-head">
+        <span class="v-num">v1.1.0</span>
+        <span class="tag">最新</span>
+        <span class="v-date">2026-10-06</span>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="ver-body">
+        <ul>
+          <li><span class="kind new">新增</span>更新公告按钮，可在此查看每个版本的新功能并下载新版本</li>
+          <li><span class="kind new">新增</span>后退/返回/首页切换按钮，更加方便操作</li>
+          <li><span class="kind better">优化</span>启动速度更快，软件更稳定</li>
+          <li><span class="kind fix">修复</span>修复部分情况下页面出现白屏问题</li>
+        </ul>
+        <p class="dl-inline"><span style="color:var(--faint);font-size:14px;text-decoration:none;">下载 v1.1.0（Apple Silicon）↓</span></p>
+      </div>
+    </section>
+
+    <section class="ver">
+      <button class="ver-head">
+        <span class="v-num">v1.0.0</span>
+        <span class="tag plain">首发</span>
+        <span class="v-date">2026-09-20</span>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="ver-body">
+        <ul>
+          <li><span class="kind new">新增</span>Canvas 网页的独立桌面封装，双击即用，无需开浏览器</li>
+          <li><span class="kind new">新增</span>独立应用窗口，支持 macOS 11 Big Sur 及以上系统</li>
+        </ul>
+        <p class="dl-inline"><span style="color:var(--faint);font-size:14px;text-decoration:none;">v1.0.0（Apple Silicon）已下架</span></p>
+      </div>
+    </section>
+
+    <footer>
+      <span>要求 macOS 11 Big Sur 或更高</span>·<span>Apple Silicon（M 系列芯片）</span>·<span><a href="使用必看！！！.html">首次安装请看安装说明</a></span>
+      <br>任何建议和问题反馈请联系：<a href="mailto:vbserves@126.com">vbserves@126.com</a>
+    </footer>
+
+  </main>
+
+<script>
+  document.querySelectorAll('.ver-head').forEach(function (head) {
+    head.addEventListener('click', function () {
+      head.closest('.ver').classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>
